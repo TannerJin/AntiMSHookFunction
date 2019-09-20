@@ -7,7 +7,7 @@
 //
 
 #include "MSHookFunctionARMCheck.h"
-#include "stdlib.h"
+
 
 __attribute__ ((always_inline))
 _Bool MSHookARMCheck(void *symbol_addr) {
@@ -61,17 +61,17 @@ _Bool MSHookARMCheck(void *symbol_addr) {
     
     /*   Load/store register offset (I = 1)
     
-               25                   19      16 15    12 11              7 6     5 4 3      0
-     +-------------------------------------------------------------------------------------+
-     |cond | 011 | P | U | B | W | L |   Rn   |   Rd   |   shit amount   | shit | 0 |  Rm  |
-     +-------------------------------------------------------------------------------------+
-    
-     ldr r15 [x16 #0]     (r15 = pc)
+                   25                   19      16 15    12 11              7 6     5 4 3      0
+         +-------------------------------------------------------------------------------------+
+         |cond | 011 | P | U | B | W | L |   Rn   |   Rd   |   shit amount   | shit | 0 |  Rm  |
+         +-------------------------------------------------------------------------------------+
      
-     br x16       (00021FD6; 0xD61F0200)
-     1101 011 0 0 0 0 1 1111 00000010000 0 0000
+         ldr r15 [x16 #0]     (r15 = pc)
      
-     If R15 is specified as register Rn, the value used is the address of the instruction plus eight.
+         br x16       (00021FD6; 0xD61F0200)
+         1101 011 0 0 0 0 1 1111 00000010000 0 0000
+     
+         If R15 is specified as register Rn, the value used is the address of the instruction plus eight.
      */
     
     int br_ldr = (second_instruction & (7 << 25)) >> 25;

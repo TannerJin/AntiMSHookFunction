@@ -2,7 +2,7 @@
 
 
 AntiMSHookFunction is an AntiHook library for MSHookFunction at runtime (make MSHookFunction doesn't work)    
-inlcude `MSHookFunction Check` and `Anti-MSHookFunction`
+include `MSHookFunction Check` and `Anti-MSHookFunction`
 
 ## Usage 
 

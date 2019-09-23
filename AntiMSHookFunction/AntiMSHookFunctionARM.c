@@ -45,7 +45,7 @@ void* antiMSHook(void* orig_func) {
                 }
                 
                 // mshook handle `pc` offset
-                int max_buffer_instructions_count = 20;   // 6 ~ 10
+                int max_buffer_instructions_count = 20;   // 8 ~ 18
                 
                 for (int i = 0; i<max_buffer_instructions_count; i++) {
                     uint64_t* cur_instruction_addr = (uint64_t *)(region_address+i*4);

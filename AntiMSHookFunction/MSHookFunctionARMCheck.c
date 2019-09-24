@@ -8,17 +8,16 @@
 
 #include "MSHookFunctionARMCheck.h"
 
-
 __attribute__ ((always_inline))
 _Bool MSHookARMCheck(void *symbol_addr) {
-    int32_t *arms = (int32_t *)symbol_addr;
+    uint32_t *arms = (uint32_t *)symbol_addr;
     
-    int32_t first_instruction = arms[0];
-    int32_t second_instruction = arms[1];
+    uint32_t first_instruction = *arms;
+    uint32_t second_instruction = *(arms+1);
     
     // http://armconverter.com/ to test
 
-    /*  // ldr rd [rn #im]      ARM Architecture Reference Manual A4.1.23
+    /*  ldr rd [rn #im]      ARM Architecture Reference Manual A4.1.23
      
         31         28 27    26 25  24  23  22  21  20  19        16 15        12 11                      0
         +------------+--------+---+---+---+---+---+---+------------+------------+------------------------+
@@ -43,7 +42,7 @@ _Bool MSHookARMCheck(void *symbol_addr) {
          +-----------------------------------------------------------------------+
      
          ldr x16, #8       (50 00 00 58; 0x58000050)
-         0101 100 0 0 0 0 0 0000 0000 0000 0101 0000
+         0101 100 0 0 0 0 0 0000 0000 0000 010 10000
      
          If R15 is specified as register Rn, the value used is the address of the instruction plus eight.
      */

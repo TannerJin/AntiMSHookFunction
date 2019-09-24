@@ -12,17 +12,15 @@
 #import <mach/vm_map.h>
 
 
-static uint64_t func_begin;
-
 // (xnu vm feature): mmap ==> vm_region
 __attribute__ ((always_inline))
 void* antiMSHook(void* orig_func) {
     if (!MSHookARMCheck(orig_func)) { return NULL; }
     
     // 16: replaced instructions
-    func_begin = (uint64_t)(orig_func+16);
+    uint64_t func_begin = (uint64_t)(orig_func+16);
     
-    vm_region_basic_info_data_t info;
+    vm_region_basic_info_data_64_t info;
     vm_address_t region_address = 1;
     vm_size_t size;
     mach_msg_type_number_t count = VM_REGION_BASIC_INFO_COUNT_64;
@@ -39,7 +37,7 @@ void* antiMSHook(void* orig_func) {
         if (kr == KERN_SUCCESS) {
             if (info.protection == (VM_PROT_READ|VM_PROT_EXECUTE)) {
                 // mshook do not handle `pc` offset
-                int64_t* _func_begin = (int64_t *)(region_address+16+8);  // 16: replaced instructions;  8: extra jump instructions
+                uint64_t* _func_begin = (uint64_t *)(region_address+16+8);  // 16: replaced instructions;  8: extra jump instructions
                 if (*_func_begin == func_begin) {
                     return (void *)(region_address);
                 }

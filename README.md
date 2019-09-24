@@ -27,7 +27,7 @@ void antiDebug() {
     void* handle = dlopen("/usr/lib/libc.dylib", RTLD_NOW);
     void* ptrace = dlsym(handle, "ptrace");
     
-    typedef void Ptrace(int, pid_t, int, int);
+    typedef int Ptrace(int, pid_t, int, int);
     Ptrace *_ptrace = (Ptrace *)ptrace;
     _ptrace(31, 0, 0, 0);
     dlclose(handle);

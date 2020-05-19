@@ -4,6 +4,8 @@
 AntiMSHookFunction is an AntiHook library for MSHookFunction at runtime (make MSHookFunction doesn't work)    
 include `MSHookFunction Check` and `Anti-MSHookFunction`
 
+[Swift-Version](https://github.com/TannerJin/IOSSecuritySuite/blob/master/IOSSecuritySuite/MSHookFunctionChecker.swift)
+
 ## Usage 
 
 ```c

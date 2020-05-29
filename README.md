@@ -9,7 +9,7 @@ include `MSHookFunction Check` and `Anti-MSHookFunction`
 ## Usage 
 
 ```c
-void* orig_antiDebug = antiMSHook(antiDebug);  // antiDebug noinline
+void* orig_antiDebug = antiMSHook(antiDebug);
     
 if (orig_antiDebug == NULL) {
     printf("[+++] Not MSHook");
@@ -21,7 +21,6 @@ if (orig_antiDebug == NULL) {
     _antiDebug();
 }
 
-// noinline
 void antiDebug() {
     resetSymbol(@"dlopen");   // anti-fishhook
     resetSymbol(@"dlsym");    // anti-fishhook

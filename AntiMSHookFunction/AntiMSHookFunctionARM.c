@@ -20,7 +20,7 @@ void* antiMSHook(void* orig_func) {
     // 16: replaced instructions
     uint64_t func_begin = (uint64_t)(orig_func+16);
     
-    vm_region_basic_info_data_64_t info;
+    struct vm_region_basic_info_64 info;
     vm_address_t region_address = 1;
     vm_size_t size;
     mach_msg_type_number_t count = VM_REGION_BASIC_INFO_COUNT_64;
@@ -32,7 +32,7 @@ void* antiMSHook(void* orig_func) {
             return NULL;
         }
         
-        kern_return_t kr = vm_region_64(mach_task_self_, &region_address, &size, VM_REGION_BASIC_INFO, (vm_region_info_t)&info, &count, &object_name);
+        kern_return_t kr = vm_region_64(mach_task_self_, &region_address, &size, VM_REGION_BASIC_INFO, (vm_region_info_64_t)&info, &count, &object_name);
         
         if (kr == KERN_SUCCESS) {
             if (info.protection == (VM_PROT_READ|VM_PROT_EXECUTE)) {
